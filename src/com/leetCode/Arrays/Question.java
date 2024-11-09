@@ -1,16 +1,16 @@
 package com.leetCode.Arrays;
 
-import com.leetCode.P4;
+import com.leetCode.String.P10;
 
 public class Question {
     public static void main(String[] args) {
-        int[] num1 = {1,2};
-        int[] num2 = {3,4};
+        P10 question = new P10();
+        String str = "aab"; // false
+        String pattern = "c*a*b";
         
-        P4 question = new P4();
-        double ans = question.solution(num1, num2);
-
-        System.out.println(ans);
+        boolean answer = question.solution(str, pattern);
+        System.out.println(answer);
+        
     }
 
 }
