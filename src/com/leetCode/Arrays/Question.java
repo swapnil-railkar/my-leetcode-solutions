@@ -1,14 +1,15 @@
 package com.leetCode.Arrays;
 
+import java.util.List;
+
 import com.leetCode.String.P10;
 
 public class Question {
     public static void main(String[] args) {
-        P10 question = new P10();
-        String str = "aaa"; // true
-        String pattern = "a*a";
+        P15 question = new P15();
+        int[] nums = {-1,0,1,2,-1,-4};
         
-        boolean answer = question.solution(str, pattern);
+        List<List<Integer>> answer = question.solution(nums);
         System.out.println(answer);
         
     }
