@@ -2,18 +2,25 @@ package com.leetCode.Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class P15 {
-	
+
 	public List<List<Integer>> solution(int[] nums) {
-		List<List<Integer>> candidates = new ArrayList<>();
+		Set<List<Integer>> candidates = new HashSet<>();
+		Set<Integer> processedNums = new HashSet<>();
 		Arrays.sort(nums);
 		for(int i=0; i< nums.length; i++) {
-			for(int j=i + 2; j< nums.length ; j++) {
+			if(processedNums.contains(nums[i])) {
+				continue;
+			}
+			for(int j=nums.length - 1; j> i ; j--) {
 				List<Integer> candidate = new ArrayList<>();
 				int rem = (nums[i] + nums[j]) * -1;
-				if (keyExists(nums, rem, i, j)) {
+                if (keyExists(nums, rem, i, j)) {
 					candidate.add(nums[i]);
 					candidate.add(nums[j]);
 					candidate.add(rem);
@@ -22,8 +29,9 @@ public class P15 {
 					candidates.add(candidate);
 				}
 			}
+			processedNums.add(nums[i]);
 		}
-		return candidates;
+		return new ArrayList<>(candidates);
 	}
 	
 	private boolean keyExists(int[] nums, int key, int startIndex, int endIndex) {
@@ -42,5 +50,6 @@ public class P15 {
 		}
 		return false;
 	}
+
 
 }
