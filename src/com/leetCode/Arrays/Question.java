@@ -1,28 +1,14 @@
 package com.leetCode.Arrays;
 
-import com.leetCode.P61;
-import com.leetCode.DsNodes.ListNode;
+import com.leetCode.P62;
 
 public class Question {
     public static void main(String[] args) {
-        P61 question = new P61();
-        ListNode head = new ListNode(1);
-        ListNode l1 = new ListNode(2);
-        ListNode l2 = new ListNode(3);
-        ListNode l3 = new ListNode(4);
-        ListNode l4 = new ListNode(5);
+        P62 question = new P62();
         
-        head.next = l1;
-        l1.next = l2;
-        l2.next = l3;
-        l3.next = l4;
+        int ways = question.solution(3, 7);
+        System.out.println(ways);
         
-        head = question.solution(head, 2);
-        
-        while(head != null) {
-        	System.out.println(head.val);
-        	head = head.next;
-        }
     }
 
 }
