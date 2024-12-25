@@ -1,63 +1,49 @@
 package com.leetCode;
 
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.ArrayList;
-
 public class P316 {
 
 	public String solution(String str) {
-		Set<Character> uniqueChars = new TreeSet<>();
-		for(int i=0; i< str.length(); i++) {
-			uniqueChars.add(str.charAt(i));
-		}
-		List<Character> answer = getSetStartingWithMinChar(uniqueChars, str);
-		return convertToString(answer);
-	}
-	
-private List<Character> getSetStartingWithMinChar(Set<Character> uniqueChars, String str) {
+		// if letter is visited then true else false
+		boolean[] visited = new boolean[26];
+		StringBuilder answer = new StringBuilder();
 		
-		for(char ch : uniqueChars) {
-			List<Character> list = new ArrayList<>();
-			list.add(ch);
-			int firstIndex = str.indexOf(ch);
-			for(int i = firstIndex + 1; i< str.length(); i++) {
-				int index = list.indexOf(str.charAt(i));
-				if(index != -1) {
-					if(str.charAt(i) == ch) {
-						continue;
-					}
-					for(int j = index + 1; j< list.size(); j++) {
-                        if(list.get(j) > str.charAt(i)) {
-                        	// if we find out that list.get(j) will be removed in future 
-                        	// and after index j in list there exists character which is less than str.charAt(i)
-                        	// then we should remove str.charAt(i) from current index and it at end of current list state
-                        	
-                            break;
-                        } else if (list.get(j) < str.charAt(i)) {
-							list.remove(index);
-							list.add(str.charAt(i));
-							break;
-						}
-					}
-				} else {
-					list.add(str.charAt(i));
-				}
-			
-			}
-			if(list.size()== uniqueChars.size()) {
-				return list;
+		for(int i=0; i< str.length(); i++) {
+			char currChar = str.charAt(i);
+			int index = currChar - 'a';
+			// if not visited then append to string
+			if(!visited[index]) {
+				answer.append(currChar);
+				visited[index] = true;
+				// fixup method to ensure answer is lexico-graphical
+				fixup(str, visited, answer, i);
 			}
 		}
-		return new ArrayList<>(uniqueChars);
-	}
-	
-	private String convertToString(List<Character> charList) {
-		StringBuffer answer = new StringBuffer();
-		for(char ch : charList) {
-			answer.append(ch);
-		}
+		
 		return answer.toString();
+ 	}
+	
+	private void fixup(final String str, boolean[] visited, StringBuilder answer, final int index) {
+		char recentEntry = answer.charAt(answer.length() - 1);
+		
+		for(int i = answer.length() - 1; i>= 0; i--) {
+			// see if bigger character exists in string
+			if(answer.charAt(i) > recentEntry) {
+				// see if this bigger character occurs after index in string.
+				boolean canAddLater = false;
+				for(int j= index + 1; j< str.length(); j++) {
+					if(str.charAt(j) == answer.charAt(i)) {
+						canAddLater = true;
+						break;
+					}
+				}
+				if(canAddLater) {
+					visited[answer.charAt(i) - 'a'] = false;
+					answer.deleteCharAt(i);
+				} else {
+					// bigger character cannot be added later so answer before that cannot be modified.
+					return;
+				}
+			}
+		}
 	}
 }
