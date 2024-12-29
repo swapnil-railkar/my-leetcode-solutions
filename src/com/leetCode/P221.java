@@ -1,5 +1,11 @@
 package com.leetCode;
 
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+
 public class P221 {
 
 	public int solution(char[][] matrix) {
@@ -38,53 +44,65 @@ public class P221 {
 	// check if square exists between start column and end column
 	private int getMaxLength(int length, int row, int startColumn, int endColumn, char[][] matrix) {
 		// find how many rows of contious rows of 1s can be found in following rows
-		int squareLength  = getMaxSquareLength(row, startColumn, endColumn, matrix);
+		int squareLength  = getMaxSquareLength(row, startColumn, endColumn, matrix, 0, new HashSet<>());
 		return Math.max(length, squareLength);
 	}
 
-	private int getMaxSquareLength(final int currRow, int startColumn, int endColumn, final char[][] matrix) {
-		int expectedLength = 0;
-		int completeSquares = 0;
-		for(int row = currRow; row< matrix.length; row++) {
-			expectedLength++;
-			// update start column and end column by max subset of 1's in row
-			int[] range = getRangeOfMaxSubsetOfOnes(startColumn, endColumn, matrix[row]);
-			startColumn = range[0];
-			endColumn = range[1];
-			if(startColumn == -1 || endColumn == -1) {
-				return completeSquares;
-			}
-			if((endColumn - startColumn) + 1 < expectedLength) {
-				return completeSquares;
+	private int getMaxSquareLength(final int currRow, int startColumn, int endColumn,
+			final char[][] matrix, int expectedLength, Set<Integer> completedSquares) {
+		int completeSquare = 0;
+		expectedLength++;
+		List<int[]> ranges = getSubArrayStartEndIndexes(startColumn, endColumn, matrix[currRow]);
+		for(int[] range: ranges) {
+			if(range[0] == -1 || range[1] == -1) {
+				completedSquares.add(completeSquare);
+			} else if((range[1] - range[0]) + 1 < expectedLength) {
+				completedSquares.add(completeSquare);
 			} else {
-				completeSquares++;
+				completeSquare = expectedLength;
+				completedSquares.add(completeSquare);
+				if(currRow == matrix.length - 1) {
+					return getMaxLength(completedSquares);
+				}
+				getMaxSquareLength(currRow + 1, range[0], range[1], matrix, expectedLength, completedSquares);
 			}
 		}
-
-		return completeSquares;
+		return getMaxLength(completedSquares);
+	} 
+	
+	private int getMaxLength(Set<Integer> completedSquares) {
+		int maxLength = Integer.MIN_VALUE;
+		for(int length : completedSquares) {
+			if(length > maxLength) {
+				maxLength = length;
+			}
+		}
+		return maxLength;
 	}
 
-	private int[] getRangeOfMaxSubsetOfOnes(int startColumn, int endColumn, final char[] row) {
-		int maxOnes = 0;
+	private List<int[]> getSubArrayStartEndIndexes(final int startColumn, final int endColumn, final char[] row) {
+		List<int[]> rangeList = new ArrayList<>();
 		int start = -1;
 		int end = -1;
-		int oneSeq = 0;
-		int currStart  = 0;
-		for(int i = startColumn; i<= endColumn; i++) {
-			if(row[i] == '1') {
-				if(oneSeq == 0) {
-					currStart = i;
+		for(int i= startColumn; i<= endColumn; i++) {
+			if(row[i] == '1' ) {
+				if(start == -1) {
+					start = i;
 				}
-				oneSeq++;
-				if(oneSeq > maxOnes) {
-					start = currStart;
-					end = i;
-					maxOnes = oneSeq;
+				end = i;
+			}
+			if(row[i] == '0') {
+				if(start!= -1) {
+					rangeList.add(new int[] {start, end});
+					start = -1;
 				}
-			} else if (row[i] == '0') {
-				oneSeq = 0;
 			}
 		}
-		return new int[] {start, end};
+
+		if(start != -1) {
+			// if array ends without 0.
+			rangeList.add(new int[] {start, endColumn});
+		}
+		return rangeList;
 	}
 }
