@@ -2,11 +2,14 @@ package com.leetCode;
 
 public class Question {
 	public static void main(String[] args) {
-		P162 question = new P162();
-		int[] arr = {1,2,3,1};
+		P75 question = new P75();
+		int[] arr = {2,0,2,1,1,0};
 
-		int index = question.solution(arr);
-		System.out.println(index);
+		question.solution(arr);
+		for(int n : arr) {
+			System.out.println(n);
+		}
+		
 	}
 
 }
