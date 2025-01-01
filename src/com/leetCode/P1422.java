@@ -17,11 +17,7 @@ public class P1422 {
 			}
 			maxSum = Math.max(maxSum, (leftCount + rightCount));
 		}
-		if(maxSum == 0) {
-			return str.length() - 1;
-		}else{
-			return maxSum;
-		}
+		return maxSum;
 	}
 
 }
