@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64958560-3d6a-46e1-ab37-9d89cb0ee0fb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/bin/com/leetCode/P221.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/leetCode/P221.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/com/leetCode/Question.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/com/leetCode/Question.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/leetCode/P221.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/leetCode/P221.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/leetCode/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/leetCode/Question.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +28,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6447e6fa-4fe2-4bb8-8604-42b8ecef1f8f" name="Changes" comment="" />
+      <changelist id="64958560-3d6a-46e1-ab37-9d89cb0ee0fb" name="Changes" comment="" />
       <created>1715523761909</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
