@@ -1,12 +1,14 @@
 package com.leetCode;
 
+import java.util.List;
+
 public class Question {
 	public static void main(String[] args) {
-		P1769 question = new P1769();
-		String str = "001011";// ace
+		P1408 question = new P1408();
+		String[] str = {"mass","as","hero","superhero"};// ace
 		
-		int[] answer = question.solution(str);
-		for(int n : answer) {
+		List<String> answer = question.solution(str);
+		for(String n : answer) {
 			System.out.print(n + "\t");
 		}
 	}
