@@ -4,15 +4,17 @@ import java.util.List;
 
 public class Question {
 	public static void main(String[] args) {
-		P802 question = new P802();
+		P1462 question = new P1462();
 		int[][] a = {
-				{0,2,3,9},{0,3,5},{},{5,7,8,9},{5,6,7,8,9},{6,7,8,9},{7,8,9},{6,8,9},{4,9},{}
+			{3,2},{3,0},{2,0}, {1,3}
 		};
-		List<Integer> answer = question.solution(a);
-		for(int n : answer) {
-			System.out.println(n + "\t");
+		int[][] b = {
+				{1,0},{1,2}
+			};
+		List<Boolean> answer = question.solution(4,a,b);
+		for(boolean n : answer) {
+			System.out.print(n + "\t");
 		}
-		System.out.println(answer);
 	}
 
 }
