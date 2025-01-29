@@ -1,4 +1,4 @@
-package com.leetCode.Graph;
+package com.leetCode;
 
 import com.leetCode.DsNodes.GNode;
 
