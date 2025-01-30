@@ -1,4 +1,4 @@
-package com.leetCode.Arrays;
+package com.leetCode;
 
 /**
  *  1.  When in pure desc then sort in asc

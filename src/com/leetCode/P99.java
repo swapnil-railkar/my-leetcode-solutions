@@ -1,4 +1,4 @@
-package com.leetCode.Tree;
+package com.leetCode;
 
 import com.leetCode.DsNodes.TreeNode;
 

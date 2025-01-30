@@ -1,4 +1,4 @@
-package com.leetCode.Arrays;
+package com.leetCode;
 
 public class P33 {
 

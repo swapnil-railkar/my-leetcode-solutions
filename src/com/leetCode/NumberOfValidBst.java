@@ -1,4 +1,4 @@
-package com.leetCode.Tree;
+package com.leetCode;
 
 public class NumberOfValidBst {
 

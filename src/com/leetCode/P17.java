@@ -1,4 +1,4 @@
-package com.leetCode.String;
+package com.leetCode;
 
 import java.util.ArrayList;
 import java.util.Collections;

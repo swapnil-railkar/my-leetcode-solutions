@@ -1,4 +1,4 @@
-package com.leetCode.String;
+package com.leetCode;
 
 public class P10 {
 
