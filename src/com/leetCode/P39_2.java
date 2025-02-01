@@ -1,10 +1,10 @@
-package com.leetCode.Arrays;
+package com.leetCode;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class P39 {
+public class P39_2 {
 
     public List<List<Integer>> solution(int[] num, int total) {
         return getCombinations(new ArrayList<>(), new ArrayList<>(), num, total);

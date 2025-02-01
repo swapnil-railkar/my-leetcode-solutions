@@ -1,6 +1,6 @@
-package com.leetCode.String;
+package com.leetCode;
 
-public class P5 {
+public class P5_2 {
 
     public String solution(String str) {
         String longestPal = String.valueOf(str.charAt(0));

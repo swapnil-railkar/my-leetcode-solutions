@@ -1,4 +1,4 @@
-package com.leetCode.Arrays;
+package com.leetCode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class P15 {
+public class P15_2 {
 
 	public List<List<Integer>> solution(int[] nums) {
 		Set<List<Integer>> candidates = new HashSet<>();
