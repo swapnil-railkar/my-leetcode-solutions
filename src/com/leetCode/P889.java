@@ -26,7 +26,7 @@ public class P889 {
 		}
 		root = new TreeNode(postOrder[endIndex]);
 		// crazy init.
-		int divideIndex = postOrderValueIndexMap.get(preOrder[startIndex + 1]);
+		int divideIndex = postOrderValueIndexMap.get(preOrder[preOrderValueIndexMap.get(root.val) + 1]);
 		root.left = buildBT(preOrder, postOrder, startIndex, divideIndex, root.left);
 		root.right = buildBT(preOrder, postOrder, divideIndex + 1, endIndex - 1, root.right);
 		return root;
@@ -36,7 +36,8 @@ public class P889 {
 	 * explaination for this : postOrderValueIndexMap.get(preOrder[preOrderValueIndexMap.get(root.val) + 1]) 
 	 * pre order traversal gives root at startIndex, value at startIndex + 1 becomes left node.
 	 * Similarly, pre order alse gives root at endIndex, then we can value at preOrder[startIndex + 1] to divide preorder array in left and right
-	 * left will contain
+	 * left will contain values from index 0 to postorder index of value for preOrder[startIndex + 1]
+	 * right will contain values form postorder index of value for preOrder[startIndex + 1] + 1 to end index - 1 (value at end index is root)
 	 * 
 	 */
 	
