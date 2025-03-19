@@ -9,22 +9,22 @@ public class P3306 {
 		int cons = 0;
 		int subs = 0;
 
-		for(int i=0; i< str.length(); i++) {
-			Set<Character> vowels = new HashSet<>();
-			cons = 0;
-			for(int j = i; j < str.length(); j++) {
-				if(isVowel(str.charAt(j))) {
-					vowels.add(str.charAt(j));
-				} else {
-					cons++;
-				}
-				if(vowels.size() == 5 && cons == k) {
-					subs++;
-				} else if(cons > k) {
-					break;
-				}
-			}
-		}
+		for (int i = 0; i <= str.length() - (k + 5); i++) {
+            Set<Character> vowels = new HashSet<>();
+            cons = 0;
+            for (int j = i; j < str.length(); j++) {
+                if (isVowel(str.charAt(j))) {
+                    vowels.add(str.charAt(j));
+                } else {
+                    cons++;
+                }
+                if (vowels.size() == 5 && cons == k) {
+                    subs++;
+                } else if (cons > k) {
+                    break;
+                }
+            }
+        }
 
 		return subs;
 	}
