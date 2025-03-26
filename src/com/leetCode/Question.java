@@ -8,8 +8,8 @@ import com.leetCode.DsNodes.TreeNode;
 public class Question {
 	public static void main(String[] args) {
 		LocalDateTime startTime = LocalDateTime.now();
-		P2685 question = new P2685();
-		int answer = question.solution(5, new int[][] {{1,2},{3,4},{1,4},{2,3},{1,3},{2,4}}); // expected : 3
+		P1976 question = new P1976();
+		int answer = question.solution(7, new int[][] {{0,6,7},{0,1,2},{1,2,3},{1,3,3},{6,3,3},{3,5,1},{6,5,1},{2,5,1},{0,4,5},{4,6,2}}); // expected : 3
 		LocalDateTime endTime = LocalDateTime.now();
 		System.out.println(answer);
 		//printTree(answer);
