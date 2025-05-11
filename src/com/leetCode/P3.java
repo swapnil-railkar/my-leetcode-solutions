@@ -1,51 +1,25 @@
 package com.leetCode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class P3 {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-        String s = "tmmzuxt";
-        int num = longestString(s);
-        System.out.println(num);
+	
+	public int solution(String s) {
+        int max = 0;
+        int left = 0;
+        for(int right = 0; right < s.length(); right++) {
+        	left = getLeftIndex(s, left, right, s.charAt(right));
+        	max = Math.max(max, right - left + 1);
+        }
+        return max;
 	}
 
-	private static int longestString(String s) {
-		// TODO Auto-generated method stub
-		if(s.isEmpty()) {
-			return 0;
-		}
-		List<Character> list;
-		int length =1;
-		int maxLength =length;
-		
-		for(int i =0 ; i< s.length();i++) {
-			list = new ArrayList<>();
-			list.add(s.charAt(i));
-			length =1;
-			for(int j = i+1; j< s.length(); j++){
-				// if current character is already present in list then reset the list.
-				if(list.contains(s.charAt(j))) {
-					if(length > maxLength) {
-						maxLength = length;
-					}
-					break;
-					
-				}else {
-					// if current character is not present in list then update the list.
-					length++;
-					list.add(s.charAt(j));
-					if(length > maxLength) {
-						maxLength = length;
-					}
-				}
+	private int getLeftIndex(String str, int start, int end, char ch) {
+		int leftIndex = start;
+		for(int i = start; i< end; i++) {
+			if(str.charAt(i) == ch) {
+				leftIndex = i + 1;
 			}
-			
 		}
-		return maxLength;
+		return leftIndex;
 	}
-
 
 }
