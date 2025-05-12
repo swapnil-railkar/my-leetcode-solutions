@@ -1,73 +1,51 @@
 package com.leetCode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.leetCode.DsNodes.TreeNode;
 
 public class P98 {
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(32);
-        TreeNode l = new TreeNode(26);
-        TreeNode r = new TreeNode(47);
-        TreeNode ll = new TreeNode(19);
-        TreeNode rr = new TreeNode(56);
-        TreeNode llr = new TreeNode(27);
+	
+    public boolean solution(TreeNode root, Boolean isValid) {
+    	return getSubtree(root) != null;
 
-        root.left = l;
-        root.right = r;
-        l.left = ll;
-        r.right = rr;
-        ll.right = llr;
-
-        System.out.println(validateBst(root, false));
     }
 
-    private static boolean validateBst(TreeNode root, Boolean isValid) {
-        if (root == null) {
-            return isValid;
-        }
-
-        if (!isLeaf(root)) {
-            final Boolean validLeftValue = isPresent(root.left) ? validateLeftTree(root.left, root) : true;
-            final Boolean validRightValue = isPresent(root.right) ? validateRightTree(root.right, root) : true;
-
-            isValid =  validLeftValue && validRightValue;
-            if (!isValid) {
-                return false;
+    private List<Integer> getSubtree(TreeNode root) {
+        if(root == null) {
+            return new ArrayList<>();
+        } else if(root.left == null && root.right == null) {
+            List<Integer> nodes = new ArrayList<>();
+            nodes.add(root.val);
+            return nodes;
+        } else {
+            List<Integer> leftNodes = getSubtree(root.left);
+            List<Integer> rightNodes = getSubtree(root.right);
+            if(leftNodes == null || rightNodes == null) {
+                // invalid tree found.
+                return null;
             }
+            // validate current root.
+            for(int node : leftNodes) {
+                if(node >= root.val) {
+                    // invalid node found.
+                    return null;
+                }
+            }
+            for(int node : rightNodes) {
+                if(node <= root.val) {
+                    // invalid node found.
+                    return null;
+                }
+            }
+            // node is valid return combination.
+            List<Integer> combination = new ArrayList<>();
+            combination.addAll(leftNodes);
+            combination.addAll(rightNodes);
+            combination.add(root.val);
+            return combination;
         }
-
-        return validateBst(root.left, isValid) && validateBst(root.right, isValid);
-
-    }
-
-    private static boolean validateLeftTree(TreeNode root, TreeNode currNode) {
-        if (root == null) {
-            return true;
-        }
-
-        if (root.val >= currNode.val) {
-            return false;
-        }
-
-        return validateLeftTree(root.left, currNode) && validateLeftTree(root.right, currNode);
-    }
-
-    private static boolean validateRightTree(TreeNode root, TreeNode currNode) {
-        if (root == null) {
-            return true;
-        }
-
-        if (root.val <= currNode.val) {
-            return false;
-        }
-
-        return validateRightTree(root.left, currNode) && validateRightTree(root.right, currNode);
-    }
-
-    private static boolean isLeaf(TreeNode root) {
-        return !isPresent(root.left) && !isPresent(root.right);
-    }
-
-    private static boolean isPresent(TreeNode node) {
-        return node!=null;
+        
     }
 }
