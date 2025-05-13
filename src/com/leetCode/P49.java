@@ -2,46 +2,34 @@ package com.leetCode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class P49 {
 
-    public List<List<String>> solution(String[] strs) {
-        List<List<String>> groups = new ArrayList<>();
-
-        for (String str : strs) {
-            addStringToGroup(groups, str);
-        }
-        return groups;
-    }
-
-    private void addStringToGroup(List<List<String>> groups, String currString) {
-        boolean addedToGroup = false;
-        for (int i =0; i< groups.size() && !addedToGroup; i++) {
-            String member = groups.get(i).get(0);
-            if (isAnagram(member, currString)) {
-                groups.get(i).add(currString);
-                addedToGroup = true;
+	public List<List<String>> solution(String[] strs) {
+        Map<String, List<String>> keyAnagramMap = new HashMap<>();
+        for(String str : strs) {
+        	String key = getKey(str);
+            if(keyAnagramMap.containsKey(key)) {
+            	keyAnagramMap.get(key).add(str);
+            } else {
+            	List<String> anagrams = new ArrayList<>();
+                anagrams.add(str);
+                keyAnagramMap.put(key, anagrams);
             }
         }
-
-        if (!addedToGroup) {
-            List<String> newGroup = new ArrayList<>();
-            newGroup.add(currString);
-            groups.add(newGroup);
+        List<List<String>> ans = new ArrayList<>();
+        for(String key : keyAnagramMap.keySet()) {
+            ans.add(keyAnagramMap.get(key));
         }
+        return ans;
     }
-
-    private boolean isAnagram(String str1, String str2) {
-        if (str1.length() != str2.length()) {
-            return false;
-        } else {
-            char[] chr1 = str1.toCharArray();
-            Arrays.sort(chr1);
-            char[] chr2 = str2.toCharArray();
-            Arrays.sort(chr2);
-
-            return Arrays.equals(chr1, chr2);
-        }
+	
+    private String getKey(String str) {
+        char[] arr = str.toCharArray();
+        Arrays.sort(arr);
+        return new String(arr);
     }
 }
