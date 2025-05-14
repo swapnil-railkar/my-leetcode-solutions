@@ -9,9 +9,8 @@ public class P105 {
     public static void main(String[] args) {
         int[] inOrder = {2,1};
         int[] preOrder = {1,2};
-        P102_2 lot = new P102_2();
+        P102 lot = new P102();
         TreeNode root = getTree(preOrder, inOrder, null);
-        lot.printTree(root);
     }
 
     private static TreeNode getTree(int[] preOrder, int[] inOrder, TreeNode root) {

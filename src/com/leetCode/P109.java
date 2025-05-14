@@ -21,8 +21,7 @@ public class P109 {
         }
 
         TreeNode root = sortedListToBST(head);
-        P102_2 op = new P102_2();
-        op.printTree(root);
+        P102 op = new P102();
 
     }
 
