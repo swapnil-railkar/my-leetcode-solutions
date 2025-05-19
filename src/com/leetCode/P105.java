@@ -1,75 +1,41 @@
 package com.leetCode;
 
 import com.leetCode.DsNodes.TreeNode;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class P105 {
-    public static void main(String[] args) {
-        int[] inOrder = {2,1};
-        int[] preOrder = {1,2};
-        P102 lot = new P102();
-        TreeNode root = getTree(preOrder, inOrder, null);
+	public TreeNode solution(int[] preorder, int[] inorder) {
+        Map<Integer, Integer> preOrderIndexMap = new HashMap<>();
+        for(int i = 0; i< preorder.length; i++) {
+            preOrderIndexMap.put(preorder[i], i);
+        }
+        return constructTree(0, inorder.length - 1, inorder, preOrderIndexMap);
     }
-
-    private static TreeNode getTree(int[] preOrder, int[] inOrder, TreeNode root) {
-        if (inOrder.length == 1) {
-            root.val = inOrder[0];
-            return root;
+    
+    private TreeNode constructTree(int left, int right, int[] inorder, Map<Integer, Integer> preOrderIndexMap) {
+    	if(left > right) {
+            return null;
         }
-
-        List<int[]> nodeInfo = getNode(inOrder, preOrder);
-        if (root == null) {
-            root = new TreeNode(nodeInfo.get(0)[0]);
+    	if(left == right) {
+            return new TreeNode(inorder[left]);
         }
-        root.val = nodeInfo.get(0)[0];
-        if(nodeInfo.get(1).length > 0) {
-            root.left = getTree(preOrder, nodeInfo.get(1), new TreeNode());
-        }
-        if(nodeInfo.get(2).length > 0) {
-            root.right = getTree(preOrder, nodeInfo.get(2), new TreeNode());
-        }
-
+        int rootIndex = getRootIndex(left, right, inorder, preOrderIndexMap);
+        TreeNode root = new TreeNode(inorder[rootIndex]);
+        root.left = constructTree(left, rootIndex-1, inorder, preOrderIndexMap);
+        root.right = constructTree(rootIndex + 1, right, inorder, preOrderIndexMap);
         return root;
     }
-
-    /**
-     *  List[0] -> root value
-     *  List[1] -> left candidates
-     *  List[2] -> right candidates
-     */
-    private static List<int[]> getNode(int[] inOrder, int[] preOrder) {
-        List<int[]> list = new ArrayList<>();
-        for (int p=0 ; p< preOrder.length; p++) {
-            for (int i = 0; i < inOrder.length; i++) {
-                if (preOrder[p] == inOrder[i]) {
-                    // Root array.
-                    int[] root = new int[1];
-                    root[0] = inOrder[i];
-
-                    // Left candidates
-                    int[] leftCandidates = new int[i];
-                    for (int k = 0; k < i; k++) {
-                        leftCandidates[k] = inOrder[k];
-                    }
-
-                    //Right candidates
-                    int[] rightCandidates = new int[inOrder.length - (i+1)];
-                    int l =0;
-                    for (int k = i+1 ; k < inOrder.length; k++) {
-                        rightCandidates[l] = inOrder[k];
-                        l++;
-                    }
-
-                    list.add(root);
-                    list.add(leftCandidates);
-                    list.add(rightCandidates);
-                    return list;
-                }
+    
+    private int getRootIndex(int left, int right, int[] inorder, Map<Integer, Integer> preOrderIndexMap) {
+        int minPreIndex = Integer.MAX_VALUE;
+        int minInIndex = Integer.MAX_VALUE;
+        for(int i = left; i <= right; i++) {
+            if(preOrderIndexMap.get(inorder[i]) < minPreIndex) {
+            	minPreIndex = preOrderIndexMap.get(inorder[i]);
+            	minInIndex = i;
             }
         }
-
-        return null;
+        return minInIndex;
     }
 }
