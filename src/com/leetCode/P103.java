@@ -8,98 +8,51 @@ import java.util.List;
 
 public class P103 {
 
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
-        TreeNode l = new TreeNode(2);
-        TreeNode r = new TreeNode(3);
-        TreeNode ll = new TreeNode(4);
-        TreeNode rr= new TreeNode(5);
-
-        root.left = l;
-        root.right = r;
-        l.left = ll;
-        r.right = rr;
-
-        List<List<Integer>> answer = getAnswer(root);
-
-        for (List<Integer> lvl : answer) {
-            for (int num : lvl) {
-                System.out.print(num + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    private static List<List<Integer>> getAnswer(TreeNode root) {
-        if (root == null) {
+	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        if(root == null) {
             return Collections.emptyList();
-        } else if (isLeaf(root)) {
-            return List.of(List.of(root.val));
-        } else {
-            List<TreeNode> lvl = new ArrayList<>();
-            List<List<Integer>> lvlOrder = new ArrayList<>();
-            lvl.add(root);
-            return getLotValues(lvlOrder, lvl,0);
         }
+        List<TreeNode> lvl = new ArrayList<>();
+        lvl.add(root);
+        return getLOC(new ArrayList<>(), lvl, false);
     }
-
-    private static List<List<Integer>> getLotValues(List<List<Integer>> lot, List<TreeNode> currLvl, int height) {
-        if (currLvl.isEmpty()) {
+    
+    private List<List<Integer>> getLOC(List<List<Integer>> lot, List<TreeNode> currLvl, boolean reverse) {
+        if(currLvl.isEmpty()) {
             return lot;
         }
-
-        updateListForCurrLvl(lot, currLvl);
-        height++;
-        List<TreeNode> nextLvl = getNextLvl(currLvl, height);
-        return getLotValues(lot, nextLvl,height);
-    }
-
-    private static List<TreeNode> getNextLvl(List<TreeNode> currLvl, int height) {
-        List<TreeNode> nextLvl = new ArrayList<>();
-        for (TreeNode currNode : currLvl) {
-            if (currNode.left == null && currNode.right != null) {
-                nextLvl.add(currNode.right);
-            } else if (currNode.right == null && currNode.left != null) {
-                nextLvl.add(currNode.left);
-            } else if (currNode.left != null && currNode.right != null){
-                if (height % 2 == 1) {
-                    nextLvl.add(currNode.right);
-                    nextLvl.add(currNode.left);
-                } else {
-                    nextLvl.add(currNode.left);
-                    nextLvl.add(currNode.right);
-                }
+        // process current lvl in reverse or regular order.
+        if(reverse) {
+            reverseTraversal(lot, currLvl);
+        } else {
+            traversal(lot, currLvl);
+        }
+        List<TreeNode> nxtLvl = new ArrayList<>();
+        for(int i = 0; i< currLvl.size(); i++) {
+            TreeNode node = currLvl.get(i);
+            if(node.left != null) {
+                nxtLvl.add(node.left);
+            }
+            if(node.right != null) {
+                nxtLvl.add(node.right);
             }
         }
-        return nextLvl;
+        return getLOC(lot, nxtLvl, !reverse);
     }
-
-    private static void updateListForCurrLvl(List<List<Integer>> lot, List<TreeNode> currLvl) {
-        List<Integer> currValues = new ArrayList<>();
-
-        for (TreeNode node : currLvl) {
-            if (node != null) {
-                currValues.add(node.val);
-            }
+    
+    private void reverseTraversal(List<List<Integer>> lot, List<TreeNode> lvl) {
+        List<Integer> values = new ArrayList<>();
+        for(int i = lvl.size() - 1; i>=0; i--) {
+            values.add(lvl.get(i).val);
         }
-
-        if (!currValues.isEmpty()) {
-            lot.add(currValues);
-        }
+        lot.add(values);
     }
-
-    private static boolean isLeaf(final TreeNode node) {
-        return node.left == null && node.right == null;
-    }
-
-    public void printTree(TreeNode root) {
-        List<List<Integer>> answer = getAnswer(root);
-
-        for (List<Integer> lvl : answer) {
-            for (int num : lvl) {
-                System.out.print(num + " ");
-            }
-            System.out.println();
+    
+    private void traversal(List<List<Integer>> lot, List<TreeNode> lvl) {
+        List<Integer> values = new ArrayList<>();
+        for(int i = 0; i< lvl.size(); i++) {
+            values.add(lvl.get(i).val);
         }
+        lot.add(values);
     }
 }
