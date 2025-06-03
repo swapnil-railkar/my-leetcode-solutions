@@ -2,50 +2,16 @@ package com.leetCode;
 
 public class P53 {
 
-    public int solution(int[] num) {
-        return findSubArray(num, 0 , num.length - 1);
-    }
-
-    private int findSubArray(int[] num, int low, int high) {
-        if (high <= low) {
-            return num[low];
-        } else {
-            int mid = (high + low) / 2;
-             int leftSum = findSubArray(num, low, mid);
-             int rightSum = findSubArray(num, mid + 1, high);
-             int crossingSum = findCrossingSubArray(num, low, mid, high);
-
-             if (leftSum >= rightSum && leftSum >= crossingSum) {
-                 return leftSum;
-             } else if (rightSum >= leftSum && rightSum >= crossingSum) {
-                 return rightSum;
-             } else {
-                 return crossingSum;
-             }
+    public int solution(int[] nums) {
+    	int[] maxSum = new int[nums.length];
+        maxSum[0] = nums[0];
+        for(int i = 1; i< nums.length; i++) {
+            maxSum[i] = Math.max(maxSum[i - 1] + nums[i], nums[i]);
         }
-    }
-
-    private int findCrossingSubArray(int[] num, int low, int mid, int high) {
-        int leftSum = Integer.MIN_VALUE;
-        int sum = 0;
-
-        for (int i = mid; i>= low; i--) {
-            sum = sum + num[i];
-            if (sum > leftSum) {
-                leftSum = sum;
-            }
+        int sum = Integer.MIN_VALUE;
+        for(int max : maxSum) {
+            sum = Math.max(sum, max);
         }
-
-        int rightSum = Integer.MIN_VALUE;
-        sum = 0;
-
-        for (int i = mid + 1; i<= high; i++) {
-            sum = sum + num[i];
-            if (sum > rightSum) {
-                rightSum = sum;
-            }
-        }
-
-        return leftSum + rightSum;
+        return sum;
     }
 }
