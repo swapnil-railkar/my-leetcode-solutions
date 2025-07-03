@@ -2,14 +2,15 @@ package com.leetCode;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.leetCode.DsNodes.TreeNode;
 
 public class Question {
 	public static void main(String[] args) {
 		LocalDateTime startTime = LocalDateTime.now();
-		P2966 question = new P2966();
-		int[][] answer = question.solution(new int[] {2,4,2,2,5,2}, 2);
+		P30 question = new P30();
+		List<Integer> answer = question.solution("barfoothefoobarman",new String[] {"foo","bar"});
 		LocalDateTime endTime = LocalDateTime.now();
 		System.out.println(answer);
 		//printTree(answer);
