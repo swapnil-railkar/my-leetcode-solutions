@@ -9,8 +9,8 @@ import com.leetCode.DsNodes.TreeNode;
 public class Question {
 	public static void main(String[] args) {
 		LocalDateTime startTime = LocalDateTime.now();
-		P3304 question = new P3304();
-		char answer = question.solution(5);
+		P1353 question = new P1353();
+		int answer = question.solution(new int[][] {{1,1},{1,2},{1,3},{1,4},{1,5},{1,6},{1,7}});
 		LocalDateTime endTime = LocalDateTime.now();
 		System.out.println(answer);
 		//printTree(answer);
