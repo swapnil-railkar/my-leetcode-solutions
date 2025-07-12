@@ -31,6 +31,7 @@ public class P1900 {
             int spIndex = getIndex(sp, state);
             if (spIndex == (state.size() - 1) - fpIndex) {
                 rounds.add(round);
+                return;
             }
             List<List<Integer>> nextStates = getNextStates(state, fp, sp);
             for (List<Integer> s : nextStates) {
