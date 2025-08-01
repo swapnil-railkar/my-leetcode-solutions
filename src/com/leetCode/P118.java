@@ -5,39 +5,33 @@ import java.util.List;
 
 public class P118 {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-        int h = 1;
-        List<List<Integer>> tri= getPascal(h);
-        System.out.println(tri);
-	}
-
-	private static List<List<Integer>> getPascal(int h) {
-		// TODO Auto-generated method stub
-		List<Integer> floor , oldFloor;
-		List<List<Integer>> tri = new ArrayList<>();
-		
-	    floor = new ArrayList<>();
-	    floor.add(1);
-	    tri.add(floor);
-			
-		 h-=1;
-		    
-		 for(int i=0 ; i< h; i++) {
-		     oldFloor = floor;
-		     floor = new ArrayList<>();
-		     for(int j=0; j<=oldFloor.size(); j++) {
-		    	 if( j== 0 || j == oldFloor.size()) {
-		    		floor.add(1);
-		    	 }else {
-		    		int sum = oldFloor.get(j-1) + oldFloor.get(j);
-		    		floor.add(sum);
-		    	}
-		    }
-		    tri.add(floor);
-		}
-		
-		return tri;
-	}
+	public List<List<Integer>> solution(int numRows) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> row = new ArrayList<>();
+        // 1st row
+        row.add(1);
+        ans.add(row);
+        if (numRows == 1) {
+            return ans;
+        } else {
+            List<Integer> prev = new ArrayList<>();
+            // 2nd row
+            prev.add(1);
+            prev.add(1);
+            ans.add(prev);
+            for(int i = 2; i< numRows; i++) {
+                List<Integer> curr = new ArrayList<>();
+                curr.add(1);
+                for(int j = 1; j< prev.size(); j++) {
+                    int sum = prev.get(j) + prev.get(j - 1);
+                    curr.add(sum);
+                }
+                curr.add(1);
+                ans.add(curr);
+                prev = curr;
+            }
+        }
+        return ans;
+    }
 
 }
