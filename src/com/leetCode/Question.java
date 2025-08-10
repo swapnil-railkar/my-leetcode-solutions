@@ -2,6 +2,7 @@ package com.leetCode;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import com.leetCode.DsNodes.TreeNode;
@@ -9,8 +10,13 @@ import com.leetCode.DsNodes.TreeNode;
 public class Question {
 	public static void main(String[] args) {
 		LocalDateTime startTime = LocalDateTime.now();
-		P406 question = new P406();
-		int[][] answer = question.solution(new int[][] {{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}});
+		P253 question = new P253();
+		int answer = question.solution(Arrays.asList(new int[] {1,5},
+				new int[] {5,10},
+				new int[] {10,15},
+				new int[] {15,20},
+				new int[] {1, 20},
+				new int[] {2, 6}));
 		LocalDateTime endTime = LocalDateTime.now();
 		System.out.println(answer);
 		//printTree(answer);
