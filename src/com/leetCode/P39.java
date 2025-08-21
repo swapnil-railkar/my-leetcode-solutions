@@ -1,42 +1,44 @@
 package com.leetCode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class P39 {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-        int[] nums = {2,3,6,7};
-        int target = 7;
-        List<List<Integer>> comb = getCombinations(nums, target);
-        System.out.println(comb);
-	}
+	public List<List<Integer>> combinationSum(int[] num, int total) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Set<List<Integer>> combinations = new HashSet<>();
+        getCombinations(combinations, new ArrayList<>(), num, total, 0);
+        for(List<Integer> combination : combinations) {
+            ans.add(combination);
+        }
+        return ans;
+    }
 
-	private static List<List<Integer>> getCombinations(int[] nums, int target) {
-		// TODO Auto-generated method stub
-		List<List<Integer>> list = new ArrayList<>();
-		List<Integer> comb;
-		Arrays.sort(nums);
-		for(int i=0; i< nums.length; i++) {
-			comb = getComb(i,nums,target);
-			if(!comb.isEmpty()) {
-				list.add(comb);
-			}
-		}
-		return list;
-	}
+    private void getCombinations(Set<List<Integer>> combinations, List<Integer> combination, int[] num, int rem, int index) {
+        if(rem == 0) {
+            Collections.sort(combination);
+            combinations.add(combination);
+            return;
+        }
+        if(index == num.length || rem < 0) {
+            return;
+        }
+        // don't keep and increase index.
+        getCombinations(combinations, combination, num, rem, index + 1);
 
-	private static List<Integer> getComb(int index,int[] nums,int target) {
-		// TODO Auto-generated method stu
-		List<Integer> list = new ArrayList<>();
-		int sum = target;
+        // keep and increase index.
+        List<Integer> keepIncrease = new ArrayList<>(combination);
+        keepIncrease.add(num[index]);
+        getCombinations(combinations, keepIncrease, num, rem - num[index], index + 1);
 
-		while(sum > 0) {
-			
-		}
-		return list;
-	}
+        // keep and don't increase index.
+        List<Integer> keepNoIncrease = new ArrayList<>(combination);
+        keepNoIncrease.add(num[index]);
+        getCombinations(combinations, keepNoIncrease, num, rem - num[index], index);
+    }
 
 }
