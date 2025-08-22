@@ -10,9 +10,10 @@ import com.leetCode.DsNodes.TreeNode;
 public class Question {
 	public static void main(String[] args) {
 		LocalDateTime startTime = LocalDateTime.now();
-		P767 question = new P767();
-		String answer = question.solution("aaab");
+		P621 question = new P621();
+		int answer = question.solution(new char[] {'A','A','A','B','B','B','C','C','C','D','D','E'}, 2);
 		LocalDateTime endTime = LocalDateTime.now();
+		System.out.println(answer);
 		//printTree(answer);
 		System.out.println("Total time taken : " + Duration.between(startTime, endTime).toMillis() + " ms");
 	}
