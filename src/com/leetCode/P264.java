@@ -1,35 +1,17 @@
 package com.leetCode;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Set;
-
 public class P264 {
 	public int solution(int n) {
-		Map<Integer, Long> numIndexMap = new HashMap<>();
-        Set<Long> nums = new HashSet<>();
-        PriorityQueue<Long> pq = new PriorityQueue<>();
-        pq.add(1L);
-        int index = 1;
-        while(nums.size() < n && !pq.isEmpty()) {
-            long num = pq.poll();
-            if(!nums.contains(num)) {
-                nums.add(num);
-                numIndexMap.put(index, num);
-                index++;
-                if(!nums.contains(num * 2)) {
-                    pq.add(num * 2);
-                }
-                if(!nums.contains(num * 3)) {
-                    pq.add(num * 3);
-                }
-                if(!nums.contains(num * 5)) {
-                    pq.add(num * 5);
-                }
-            }
-        }
-        return numIndexMap.get(n).intValue();
-    }
+		int[] ugly = new int[n];
+		ugly[0] = 1;
+		int i2 = 0, i3 = 0, i5 = 0;
+		for(int i = 1; i< n; i++) {
+			int next = Math.min(ugly[i2] * 2, Math.min(ugly[i3] * 3, ugly[i5] * 5));
+			ugly[i] = next;
+			if(next == ugly[i2] * 2) i2++;
+			if(next == ugly[i3] * 3) i3++;
+			if(next == ugly[i5] * 5) i5++;
+		}
+		return ugly[n - 1];
+	}
 }
