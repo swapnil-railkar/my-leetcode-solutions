@@ -1,63 +1,27 @@
 package com.leetCode;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class P313 {
 	public int solution(int n, int[] primes) {
-        if (n == 1) return 1;
-        Set<Integer> pSet = new HashSet<>();
-        for(int num : primes) {
-            pSet.add(num);
+		int[] indexes = new int[primes.length];
+        int[] ugly = new int[n];
+        long[] temp = new long[primes.length];
+        for(int i = 0; i< primes.length; i++) {
+            temp[i] = primes[i];
         }
-        pSet.add(1);
-        int count = 1;
-        int num = 2;
-        while(count < n) {
-            Set<Integer> primeFactors = getPrimeFactors(num);
-            if(isSuperUgly(pSet, primeFactors)) {
-                count++;
+        ugly[0] = 1;
+        for(int i = 1; i< n; i++) {
+            long min = Long.MAX_VALUE;
+            for(int j = 0; j< primes.length; j++) {
+                min = Math.min(temp[j], min);
             }
-            num++;
-        }
-        return num;
-    }
-
-    private boolean isSuperUgly(Set<Integer> primes, Set<Integer> factors) {
-        for(int factor : factors) {
-            if(!primes.contains(factor)) {
-                return false;
+            ugly[i] = (int) min;
+            for(int j = 0;j< primes.length; j++) {
+                if(temp[j] == min) {
+                    indexes[j]++;
+                    temp[j] = primes[j] * (long) ugly[indexes[j]];
+                }
             }
         }
-        return true;
-    }
-
-    private Set<Integer> getPrimeFactors(int num) {
-        Set<Integer> factors = new HashSet<>();
-        while(!isPrime(num)) {
-            int factor = getMinPrimeFactor(num);
-            factors.add(factor);
-            num /= factor;
-        }
-        factors.add(num);
-        return factors;
-    }
-
-    private int getMinPrimeFactor(int num) {
-        int i = 2;
-        while(i <= num && !(isPrime(i) && num % i == 0)) {
-            i++;
-        }
-        return i;
-    }
-
-    private boolean isPrime(int num) {
-        if (num <= 1) return true;
-        for(int i = 2; i<= Math.sqrt(num); i++) {
-            if(num % i == 0) {
-                return false;
-            }
-        }
-        return true;
+        return ugly[n - 1];
     }
 }
