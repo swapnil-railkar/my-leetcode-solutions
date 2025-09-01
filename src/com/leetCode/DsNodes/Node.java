@@ -5,6 +5,8 @@ public class Node {
     public Node left;
     public Node right;
     public Node next;
+    public Node child;
+    public Node prev;
 
     public Node(){}
 
@@ -13,5 +15,7 @@ public class Node {
         this.left = null;
         this.right = null;
         this.next = null;
+        this.child = null;
+        this.prev = null;
     }
 }
