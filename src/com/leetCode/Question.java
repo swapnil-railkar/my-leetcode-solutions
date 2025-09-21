@@ -10,14 +10,12 @@ import com.leetCode.DsNodes.TreeNode;
 public class Question {
 	public static void main(String[] args) {
 		LocalDateTime startTime = LocalDateTime.now();
-		P3484 question = new P3484(3);
-		System.out.println(question.getValue("=5+7"));
-		question.setCell("A1", 10);
-		System.out.println(question.getValue("=A1+6"));
-		question.setCell("B2", 15);
-		System.out.println(question.getValue("=A1+B2"));
-		question.resetCell("A1");
-		System.out.println(question.getValue("=A1+B2"));
+		P3508 question = new P3508(3);
+		System.out.println(question.addPacket(1,4,90));
+		System.out.println(question.addPacket(2,5,90));
+		System.out.println(question.addPacket(1,4,90));
+		System.out.println(question.addPacket(3,5,95));
+		System.out.println(question.addPacket(4,5,105));
 		//List<Integer> answer = question.solution(new int[] {31,97561,97561,97561,97561,97561,97561,97561,97561});
 		LocalDateTime endTime = LocalDateTime.now();
 		//System.out.println(answer);
