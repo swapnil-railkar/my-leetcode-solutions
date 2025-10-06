@@ -10,8 +10,10 @@ import com.leetCode.DsNodes.TreeNode;
 public class Question {
 	public static void main(String[] args) {
 		LocalDateTime startTime = LocalDateTime.now();
-		P3698 question = new P3698();
-		long answer = question.solution(new int[] {1, 2, 3, 4, 5, 5});
+		P417 question = new P417();
+		List<List<Integer>> answer = question.solution(new int[][] {
+			{5,5,5,5,5},{4,4,4,4,4},{5,5,5,5,5}
+		});
 		LocalDateTime endTime = LocalDateTime.now();
 		System.out.println(answer);
 		//printTree(answer);
