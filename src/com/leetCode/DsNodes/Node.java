@@ -1,12 +1,13 @@
 package com.leetCode.DsNodes;
 
 public class Node {
-    int val;
+    public int val;
     public Node left;
     public Node right;
     public Node next;
     public Node child;
     public Node prev;
+    public Node random;
 
     public Node(){}
 
