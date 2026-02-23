@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class P1461 {
-	public boolean hasAllCodes(String s, int k) {
+	public boolean solution(String s, int k) {
         int expectedSize = (int) Math.pow(2, k);
         if(s.length() < expectedSize) {
             return false;
